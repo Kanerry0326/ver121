@@ -48,33 +48,50 @@ const ground = Bodies.rectangle( 310, 820, 620, 60,{
 
 const topLine = Bodies.rectangle( 310, 150, 620, 2,{
     isStatic: true, 
+    // 센서 감지 기능
+    isSensor: true,
     render: { fillStyle: '#E6B143'}                                 
 })
 
 // 생성한 벽을 월드에 배치
 
-World.add(world, {leftWall, rightWall, ground, topLine});
+World.add(world, [leftWall, rightWall, ground, topLine]);
 
 //실행
 Render.run(render);
 Runner.run(engine);
 
+//현재 과알 값을 저장하는 변수
+let currentBody = null;
+let currentFruit = null;
+
 // 과일을 추가하는 함수
 function addFruit() {
 
-const fruit = FRUITS[0];    
+const index = Math.floor(Math.random() * 5);
+
+const fruit = FRUITS[index];    
+
 const body = Bodies.circle(300, 50, fruit.radius,
     {
+        index : index,
+        //처음 시작할때 프리징
+        isSleeping : true,
         render: {
             sprite: {texture: `${fruit.name}.png`}
-        }
+        },
+        restitution : 0.4,
     });
 
 
-    World.add(world.body);
+    currentBody = body;
+    currentFruit = fruit;
+
+
+    World.add(world, body);
 
 }
 
 
-//함수호출
-//addFruit();
+// 함수호출
+addFruit();
