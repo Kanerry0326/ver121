@@ -1,3 +1,6 @@
+// 이미지 및 반지름 추가
+import { FRUITS } from "./fruits.js";
+
 // 모듈 불러오기
 
 var Engine = Matter.Engine ,
@@ -39,12 +42,12 @@ const rightWall = Bodies.rectangle( 605, 395, 30, 790,{
 })
 
 const ground = Bodies.rectangle( 310, 820, 620, 60,{
-    isStatic: false, 
+    isStatic: true, 
     render: { fillStyle: '#E6B143'}                                 
 })
 
 const topLine = Bodies.rectangle( 310, 150, 620, 2,{
-    isStatic: false, 
+    isStatic: true, 
     render: { fillStyle: '#E6B143'}                                 
 })
 
@@ -55,3 +58,23 @@ World.add(world, {leftWall, rightWall, ground, topLine});
 //실행
 Render.run(render);
 Runner.run(engine);
+
+// 과일을 추가하는 함수
+function addFruit() {
+
+const fruit = FRUITS[0];    
+const body = Bodies.circle(300, 50, fruit.radius,
+    {
+        render: {
+            sprite: {texture: `${fruit.name}.png`}
+        }
+    });
+
+
+    World.add(world.body);
+
+}
+
+
+//함수호출
+//addFruit();
