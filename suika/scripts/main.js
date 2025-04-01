@@ -92,6 +92,10 @@ const body = Bodies.circle(300, 50, fruit.radius,
 
 }
 
+window.onkeydown = (event) => {
+
+}
+
 
 // 함수호출
 addFruit();
